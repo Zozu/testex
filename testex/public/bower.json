@@ -1,0 +1,30 @@
+{
+  "name": "testex_public",
+  "homepage": "https://github.com/Zozu/testex",
+  "authors": [
+    "Max Selekh <max.selekh@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "less/bootstrap.less",
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
+  },
+  "dependencies": {
+    "angular": "1.5.5",
+    "bootstrap": "^3.3.6"
+  }
+}

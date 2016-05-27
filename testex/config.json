@@ -1,0 +1,24 @@
+{
+	"express_run_script": "./bin/www",
+	"hostname": "http://localhost",
+	"ports": {
+		"browser_sync": {
+			"public": 3001
+		},
+		"express": 3000
+	},
+    "mongoose": {
+        "uri": "mongodb://localhost/testex"
+    },
+    "paths": {
+    	"public":"./public"
+    },
+    "nodemon": {
+    	"ignore" : ["./public/*", "./views/*", "./admin/*"]
+    },
+    "gulp": {
+    	"defaults": {
+    		"path": "public"
+    	}
+    }
+}
