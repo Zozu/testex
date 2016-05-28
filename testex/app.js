@@ -6,7 +6,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/AngularizeApp');
+/*mongoose.connect('mongodb://localhost/AngularizeApp');
 
 var db = mongoose.connection;
 
@@ -15,7 +15,7 @@ db.on('error', function (err) {
 });
 db.once('open', function callback () {
     console.info("Connected to DB!");
-});
+});*/
 
 var routes = require('./routes/index'),
     api = require('./routes/api');

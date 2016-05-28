@@ -1,0 +1,45 @@
+@import "colors";
+
+.content {
+	margin-bottom: 20px;
+}
+
+.borderless td, .borderless tr {
+    border: none;
+}
+
+.user-list {
+	width: 100%;
+
+	.user-list-item {
+		width: 100%;
+		padding: 10px;
+
+		&:hover{
+			background-color: $gray-lighter;
+			cursor: pointer;
+		}
+	}
+}
+
+.chat-box {
+	.extend-body {
+		height: 250px;
+		overflow-y: auto;
+	}
+}
+
+@mixin message {
+	width: 100%;
+	margin-bottom: 3px;
+}
+
+.message-opponent{
+	@include message;
+}
+.message-self{
+	@include message;
+	.name {
+		font-weight: bold;
+	}
+}

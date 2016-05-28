@@ -1,0 +1,28 @@
+.content {
+  margin-bottom: 20px; }
+
+.borderless td, .borderless tr {
+  border: none; }
+
+.user-list {
+  width: 100%; }
+  .user-list .user-list-item {
+    width: 100%;
+    padding: 10px; }
+    .user-list .user-list-item:hover {
+      background-color: #eeeeee;
+      cursor: pointer; }
+
+.chat-box .extend-body {
+  height: 250px;
+  overflow-y: auto; }
+
+.message-opponent {
+  width: 100%;
+  margin-bottom: 3px; }
+
+.message-self {
+  width: 100%;
+  margin-bottom: 3px; }
+  .message-self .name {
+    font-weight: bold; }
