@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="testex">
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Example</title>
@@ -11,37 +11,43 @@
 		<!-- endinject -->
 	</head>
 	<body>
-		<nav class="navbar navbar-default">
+		<nav class="navbar navbar-default" ng-controller="NavBarCtrl">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"></button>
-      				<a class="navbar-brand" href="#">Example</a>
+      				<a class="navbar-brand" ui-sref="main">Example</a>
 				</div>
 				<p class="navbar-text">Test project from Max Selekh</p>
 				<ul class="nav navbar-nav navbar-right">
-        			<li><a href="#">Log In</a></li>
-        			<li><a href="#">Sign In</a></li>
-        			<li class="dropdown">
-          				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
+        			<li ng-hide="authorized"><a ui-sref="login">Log In</a></li>
+        			<li ng-hide="authorized"><a ui-sref="register">Sign In</a></li>
+        			<li ng-show="authorized" class="dropdown">
+          				<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.username}} <span class="caret"></span></a>
           				<ul class="dropdown-menu">
-            				<li><a href="#">Edit profile</a></li>
+            				<li><a ui-sref="edit({userId: user.id})">Edit profile</a></li>
 				            <li role="separator" class="divider"></li>
-				            <li><a href="#">Logout</a></li>
+				            <li><a ng-click="logout();">Logout</a></li>
           				</ul>
         			</li>
       			</ul>
 			</div>
 		</nav>
-		<!-- <div ui-view class="container content"></div> -->
-		<div ui-view class="container content">
-			
-		</div>
+		<div ui-view class="container content"></div>
 		<!-- bower:js -->
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/jquery/dist/jquery.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 		<!-- endinject -->
 		<!-- inject:js -->
+		<script src="scripts/app.js"></script>
+		<script src="scripts/controllers/controller-welcome.js"></script>
+		<script src="scripts/controllers/controller-register.js"></script>
+		<script src="scripts/controllers/controller-navbar.js"></script>
+		<script src="scripts/controllers/controller-main.js"></script>
+		<script src="scripts/controllers/controller-login.js"></script>
+		<script src="scripts/controllers/controller-edit.js"></script>
+		<script src="scripts/configs/config-router.js"></script>
+		<script src="scripts/angular-ui-router.min.js"></script>
 		<!-- endinject -->
 	</body>
 </html>
