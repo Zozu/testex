@@ -1,3 +1,3 @@
-angular.module('testex').controller("MainCtrl", function(authorized) {
-	console.log(authorized);
-}); 
+angular.module('testex').controller("MainCtrl", ['users', function(users, $scope) {
+	$scope.users = users;
+}]); 

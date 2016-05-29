@@ -1,12 +1,34 @@
 angular.module('testex')
-	.config(function ($stateProvider, $httpProvider, $urlRouterProvider) {
+	.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+    function checkLoggedin($q, $http, $rootScope, $state) {
+        var deferred = $q.defer();
+
+        $http.get('/loggedin').success(function(user) {
+            if (user !== '0') deferred.resolve();
+            else {
+                //$rootScope.message ='You need to log in.';
+                deferred.reject();
+                $state.go('login');
+            }
+        return deferred.promise;
+    };
+
+    function getUser(UserService, $stateParams){
+        return UserService.getUser($stateParams.userEmail);
+    }
+
+    function getUsersArray(UserService.getAllUsers){
+        return UserService.getAllUsers();
+    }
+
 	$stateProvider
         .state('main', {
             url: '/',
             templateUrl: 'html/main.html',
             controller: 'MainCtrl',
             resolve: {
-                authorized: isAuthorized
+                authorized: checkLoggedin,
+                users: getUsersArray
             }
         })
         .state('edit', {
@@ -14,10 +36,10 @@ angular.module('testex')
             templateUrl: 'html/setting-user.html',
             controller: 'EditCtrl',
             params:{
-                userId: null
+                userEmail: null
             },
             resolve: {
-                authorized: isAuthorized,
+                authorized: checkLoggedin,
                 user: getUser
             }
         })
@@ -37,22 +59,4 @@ angular.module('testex')
             controller: 'RegisterCtrl'
         });
     $urlRouterProvider.otherwise('/');
-    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-
-    function isAuthorized($http, $state) {
-                    /*return $http.get('/api/servers')
-                        .then(function (res) {
-                            if (!res.data || !res.data.length) {
-                                throw res;  
-                            }
-                            return res.data;
-                        })
-                        .catch(function (err) {
-                            $state.go('error');
-                        });*/
-                    return true;
-                }
-    function getUser(){
-        return true;
-    }
-});
+}]);

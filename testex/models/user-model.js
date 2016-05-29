@@ -32,11 +32,11 @@ var userSchema = mongoose.Schema({
 var User = mongoose.model('User', userSchema);
 
 User.addUser = userFromClient => {
-	var addUserPromise = User.findOne({'email': user.email}).exec();
+	var addUserPromise = User.findOne({'email': user.email}, {'password': 0}).exec();
 
 	return addUserPromise
 		.then((user) => {
-			if(user) throw new Error(false);
+			if(user) throw false;
 			else {
 				var newUser = new User(userFromClient);
 				return newUser.save();
@@ -47,7 +47,7 @@ User.addUser = userFromClient => {
 };
 
 User.getAll = () => {
-	var getAllPromise = User.find({}).exec();
+	var getAllPromise = User.find({}, {'password': 0}).exec();
 	return getAllPromise
 		.then(users => users)
 		.catch(err => err);
@@ -59,12 +59,12 @@ User.getAll = () => {
 };
 
 User.findUser = email => {
-	var findUserPromise = User.findOne({'email': email}).exec();
+	var findUserPromise = User.findOne({'email': email}, {'password': 0}).exec();
 
 	return findUserPromise
 		.then(user => {
 	        if (!user){
-	            throw new Error(false);                 
+	            throw false;                 
 	        }
 	        return user;
 		})
@@ -94,11 +94,11 @@ User.tryLogin = (email, password) => {
 		.then(user => {
 	        if (!user){
 	            console.log('User Not Found with email ' + email);
-	            throw new Error(false);             
+	            throw false;             
 	        }
 	        if (bcrypt.compareSync(password, user.password)){
 	            console.log('Invalid Password');
-	            throw new Error(false);
+	            throw false;
 	        }
 	        return user;
 	    })
