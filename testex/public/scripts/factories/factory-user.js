@@ -39,8 +39,9 @@ angular.module('testex')
 			});
 	};
 
-	User.prototype.update = function(){
-		return $http.put('/user/' + this.email, this.obj)
+	User.prototype.update = function(id){
+		console.log(this.obj);
+		return $http.put('/user/' + id, this.obj)
 			.then(function(res){
 				if(res.status != 200) throw res;
 				else {

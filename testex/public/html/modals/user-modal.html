@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{modal.header}}</h3>
+</div>
+<div class="modal-body">
+    <form>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input ng-show="changeUsername" type="text" id="username" ng-model="user.username" placeholder="Username..." class="form-control" required />
+            <p ng-hide="changeUsername">{{user.username}}</p>
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" ng-model="user.email" placeholder="E-mail..." class="form-control" required />
+        </div>
+        <div ng-show="createPassword" class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" ng-model="user.password" placeholder="Password..." class="form-control" required />
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">{{modal.successButton}}</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

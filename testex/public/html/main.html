@@ -6,8 +6,8 @@
 		<li ng-repeat="user in users" ng-if="user._id != rootUser._id" class="user-list-item">- {{user.username}} <small>({{user.email}})</small> <a ng-show="rootUser.admin" ui-sref="edit({userId: user._id})"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
 	</ul>
 	<hr>
-	<button type="button" class="btn btn-success btn-xs pull-right">
-			<span class="glyphicon glyphicon-plus" aria-hidden="true" ng-click="openAddModal()"></span> Add user 
+	<button type="button" class="btn btn-success btn-xs pull-right" ng-click="openAddModal()">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add user 
 	</button>
 </div>
 

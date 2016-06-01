@@ -1,0 +1,7 @@
+//TODO modals
+//TODO add ability for non-admin users changing self 
+//TODO alerts, exception handling
+//TODO fix main/welcome redirect
+//TODO build event system instead of rootScope variables
+//TODO replace modals logic to separate service
+//TODO login statusbar (sometimes loads slowly)

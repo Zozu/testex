@@ -38,4 +38,5 @@ angular.module('testex')
 		}
 		return array;
 	};
+	this.toFactoryUser = toFactoryUser;
 }]);

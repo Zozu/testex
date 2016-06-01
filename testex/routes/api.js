@@ -32,7 +32,6 @@ module.exports = function(passport){
 			});
 	});
 
-	//TODO non-admin only self
 	//update user by id
 	router.put('/user/:id', auth, isAdmin, (req, res, next) => {
 		User.updateUser(req.params.id, req.body.user)
