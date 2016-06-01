@@ -1,1 +1,1 @@
-angular.module('testex').controller('NavBarCtrl', [function() {}]); 
+angular.module('testex').controller('NavBarCtrl', ['$rootScope', function($rootScope) {}]); 

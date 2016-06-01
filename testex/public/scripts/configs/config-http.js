@@ -4,7 +4,7 @@ angular.module('testex')
     $httpProvider.interceptors.push(['$q', '$injector', function($q, $injector) {
         return {
             request: function (request) {
-                if(request.url.indexOf('html') == -1) request.url = '/api' + request.url;
+                if(request.url.indexOf('.html') == -1) request.url = '/api' + request.url;
                 return request;
             },
             response:function(response) {

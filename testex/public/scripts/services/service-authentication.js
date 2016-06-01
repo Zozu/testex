@@ -1,8 +1,8 @@
 angular.module('testex')
 	.service('AuthService', ['$http', '$state', function($http, $state){
 	var rootUser = null;
-	function login(email, password) {
-		return $http.post('/login', {email: email, password: password, username: email})
+	function login(username, password) {
+		return $http.post('/login', {password: password, username: username})
 			.then(function(res) {
 				if(res.status == 200) {
 					rootUser = res.data;
@@ -15,13 +15,12 @@ angular.module('testex')
 		var user = {
 			email: email,
 			password: password,
-			username: username,
-			admin: true
+			username: username
 		};
 		return $http.post('/signup', user)
 			.then(function(res) {
 				if(res.status == 200) {
-					rootUser = null;
+					rootUser = res.data;
 					return res;
 				}
 				else throw res;
@@ -31,7 +30,10 @@ angular.module('testex')
 	function checkLoggedin() { 
 		return $http.get('/loggedin')
 		    .then(function(res) {
-		        if (res.data !== '0') return Promise.resolve(res.data);
+		        if (res.data !== '0') {
+		        	rootUser = res.data;
+		        	return Promise.resolve(res.data);
+		        }
 		        else {
 		        	rootUser = null;
 		        	return Promise.resolve(null);

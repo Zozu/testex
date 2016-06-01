@@ -2,7 +2,7 @@ angular.module('testex')
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     
     function getUser(UserService, $stateParams){
-        return UserService.getUser($stateParams.userEmail);
+        return UserService.getUser($stateParams.userId);
     }
 
     function getUsersArray(UserService){
@@ -10,7 +10,6 @@ angular.module('testex')
     }
 
     function checkLogged($state, AuthService) {
-                console.log(AuthService.isLogged());
         return new Promise(function(resolve, reject){
             if(AuthService.isLogged() === false) {
                 $state.go('welcome');
@@ -21,7 +20,6 @@ angular.module('testex')
     }
 
     function checkUnLogged($state, AuthService) {
-                console.log(AuthService.isLogged());
         return new Promise(function(resolve, reject){
             if(AuthService.isLogged() === false) resolve();
             else {
@@ -37,9 +35,7 @@ angular.module('testex')
             templateUrl: 'html/main.html',
             controller: 'MainCtrl',
             resolve: {
-                isAuthorized: checkLogged
-            },
-            data: {
+                isAuthorized: checkLogged,
                 users: getUsersArray
             }
         })
@@ -48,12 +44,10 @@ angular.module('testex')
             templateUrl: 'html/setting-user.html',
             controller: 'EditCtrl',
             params:{
-                userEmail: null
+                userId: null
             },
             resolve: {
-                isAuthorized: checkLogged
-            },
-            data: {
+                isAuthorized: checkLogged,
                 user: getUser
             }
         })

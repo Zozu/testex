@@ -36,7 +36,7 @@ app.use(session({
       ttl: 7 * 24 * 60 * 60 // = 7 days.
     }),
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());

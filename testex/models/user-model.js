@@ -7,20 +7,18 @@ var userSchema = mongoose.Schema({
     username: { 
     	type: String, 
     	required: true,
+    	index: { unique: true },
     	minlength: 3,
     	maxlength: 20
     },
     email: { 
     	type: String, 
     	required: true,
-    	index: { unique: true },
     	match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ 
     },
     password: { 
     	type: String, 
     	required: true,
-    	minlength: 6,
-    	//maxlength: 40, 
     	set: toHash
     },
     admin: { 
@@ -32,38 +30,38 @@ var userSchema = mongoose.Schema({
 var User = mongoose.model('User', userSchema);
 
 User.addUser = userFromClient => {
-
-	console.log(333);
-	var addUserPromise = User.findOne({'email': userFromClient.email}, {'password': 0}).exec();
-	console.log(userFromClient);
-	return addUserPromise
-		.then((user) => {
-			console.log(user);
-			if(user) throw false;
-			else {
-				console.log(111);
-				var newUser = new User(userFromClient);
-				return newUser.save();
-			}
-		})
-		.then(savedUser => savedUser)
-		.catch(err => err);
+	return User.count({}).exec()
+		.then(count => {
+			var overrideAdmin = (count == 0);
+			return User.findOne({'username': userFromClient.username}, {'password': 0}).exec()
+				.then((user) => {
+					if(user) throw false;
+					else {
+						userFromClient.admin = overrideAdmin || userFromClient.admin;
+						console.log(userFromClient);
+						var newUser = new User(userFromClient);
+						return newUser.save();
+					};
+				});
+		});
 };
 
 User.getAll = () => {
 	var getAllPromise = User.find({}, {'password': 0}).exec();
 	return getAllPromise
-		.then(users => users)
-		.catch(err => err);
-    /*var userMap = {};*/
+		.then(users => {
+			var userMap = {};
 
-    /*users.forEach(function(user) {
-      userMap[user._id] = user;
-    });*/ 
+    		users.forEach(function(user) {
+      			userMap[user._id] = user;
+    		});
+
+    		return userMap;
+		});
 };
 
-User.findUser = email => {
-	var findUserPromise = User.findOne({'email': email}, {'password': 0}).exec();
+User.findUserById = id => {
+	var findUserPromise = User.findById(id, {'password': 0}).exec();
 
 	return findUserPromise
 		.then(user => {
@@ -71,43 +69,38 @@ User.findUser = email => {
 	            throw false;                 
 	        }
 	        return user;
-		})
-		.catch(err => err);
+		});
 };
 
-User.updateUser = (email, userFromClient) => {
-	return this.findUser(email)
+User.updateUser = (id, userFromClient) => {
+	return this.findUserById(id)
 		.then(user => {
-			user.username = userFromClient.username;
+			user.email = userFromClient.email;
 			user.password = userFromClient.password;
 			user.admin = userFromClient.admin;
 			return user.save();
-		})
-		.then(savedUser => savedUser)
-		.catch(err => err);
+		});
 };
 
-User.deleteUser = email => {
-	return User.findOneAndRemove({'email': email}).exec();
+User.deleteUser = id => {
+	return User.findOneAndRemove({'_id': id}).exec();
 };
 
-User.tryLogin = (email, password) => {
-	consoloe.log(777);
-	var loginPromise = User.findOne({'email': email}).exec();
+User.tryLogin = (username, password) => {
+	var loginPromise = User.findOne({'username': username}).exec();
 
 	return	loginPromise
 		.then(user => {
 	        if (!user){
-	            console.log('User Not Found with email ' + email);
-	            throw false;             
+	            console.log('User Not Found with username ' + username);
+	            throw "";             
 	        }
-	        if (bcrypt.compareSync(password, user.password)){
+	        if (!bcrypt.compareSync(password, user.password)){
 	            console.log('Invalid Password');
-	            throw false;
+	            throw "";
 	        }
 	        return user;
-	    })
-	    .catch(err => err);
+	    });
 };
 
 module.exports = User;

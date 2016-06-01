@@ -8,51 +8,52 @@ module.exports = function(passport){
 	//get all users
 	router.get('/user/all', auth, (req, res, next) => {
 		User.getAll()
-			.then(users => {res.status(200).end(users);})
-			.catch(err => {res.status(500).end(err);});
+			.then(users => {res.status(200).send(users);})
+			.catch(err => {res.status(500).send(err);});
 	});
 
-	//get user by email
-	router.get('/user/:email', auth, (req, res, next) => {
-		User.findUser(req.params.email)
-			.then(user => res.status(200).end(user))
+	//get user by id
+	router.get('/user/:id', auth, (req, res, next) => {
+		User.findUserById(req.params.id)
+			.then(user => res.status(200).send(user))
 			.catch(err => {
-				if (err === false) res.status(404).end('Not Found');
-				else res.status(500).end(err);
+				if (err === false) res.status(404).send('Not Found');
+				else res.status(500).send(err);
 			});
 	});
 
 	//create new user
 	router.put('/user', auth, isAdmin, (req, res, next) => {
-		console.log("AAAAAAAAAAAAAAAAAAAAAAAAA");
-		console.log(req.body.user);
 		User.addUser(req.body.user)
-			.then(savedUser => {res.status(200).end(savedUser);})
+			.then(savedUser => {res.status(200).send(savedUser);})
 			.catch(err => {
-				if (err === false) res.status(403).end('Already exist');
-				else res.status(500).end(err);
+				if (err === false) res.status(403).send('Already exist');
+				else res.status(500).send(err);
 			});
 	});
 
-	//update user by email
-	router.put('/user/:email', auth, isAdmin, (req, res, next) => {
-		User.updateUser(req.params.email, req.body.user)
-			.then(updatedUser => {res.status(200).end(updatedUser);})
+	//TODO non-admin only self
+	//update user by id
+	router.put('/user/:id', auth, isAdmin, (req, res, next) => {
+		User.updateUser(req.params.id, req.body.user)
+			.then(updatedUser => {res.status(200).send(updatedUser);})
 			.catch(err => {
-				if (err === false) res.status(404).end('Not Found');
-				else res.status(500).end(err);
+				if (err === false) res.status(404).send('Not Found');
+				else res.status(500).send(err);
 			});
 	});
 
-	//delete user by email
-	router.delete('/user/:email', auth, isAdmin, (req, res, next) => {
-		User.deleteUser(req.params.email)
-			.then(deletedUser => {res.status(200).end(deletedUser);})
-			.catch(err => {res.status(500).end(err);});
+	//delete user by id
+	router.delete('/user/:id', auth, isAdmin, (req, res, next) => {
+		User.deleteUser(req.params.id)
+			.then(deletedUser => {res.status(200).send(deletedUser);})
+			.catch(err => {res.status(500).send(err);});
 	})
 
 	//registration request
-	router.post('/signup', passport.authenticate('signup'));
+	router.post('/signup', passport.authenticate('signup'), (req, res) => {
+		res.status(200).send(req.user);
+	});
 
 	//is user logged
 	router.get('/loggedin', (req, res) => { 
@@ -60,7 +61,7 @@ module.exports = function(passport){
 	});
 
 	router.post('/login', passport.authenticate('login'), (req, res) => {
-	  	res.status(200).end(req.user);
+	  	res.status(200).send(req.user);
 	});
 
 	router.post('/logout', (req, res) => {

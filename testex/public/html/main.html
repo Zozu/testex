@@ -1,15 +1,16 @@
-<div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
+<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 col-lg-offset-2 col-md-offset-2 col-sm-offset-1">
 	<p class="h4 text-muted">Users:</p>
 	<hr>
 	<h4 ng-show="!users || users.lenght == 0" class="text-muted">Nothing to show..</h4>
 	<ul class="user-list list-unstyled"> 
-		<li ng-repeat="user in users" class="user-list-item">- {{user.username}} <small>({{user.email}})</small> <a ui-sref="edit({userEmail: user.email})"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
+		<li ng-repeat="user in users" ng-if="user._id != rootUser._id" class="user-list-item">- {{user.username}} <small>({{user.email}})</small> <a ng-show="rootUser.admin" ui-sref="edit({userId: user._id})"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
 	</ul>
 	<hr>
 	<button type="button" class="btn btn-success btn-xs pull-right">
 			<span class="glyphicon glyphicon-plus" aria-hidden="true" ng-click="openAddModal()"></span> Add user 
 	</button>
 </div>
+
 <!-- could be uncommented in future -->
 <!-- <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-2 col-xs-6">
 	<div class="panel panel-primary chat-box">

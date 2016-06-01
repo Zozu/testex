@@ -1,16 +1,14 @@
 angular.module('testex')
 	.service('UserService', ['$http', 'User', function($http, User){
-	this.getUser = function(email) {
-		return $http.get('/user/' + email)
+	this.getUser = function(id) {
+		return $http.get('/user/' + id)
 			.then(function(res){
 				if(res.status != 200) throw res;
-				else {
-					return toFactoryUser(res.data);
-				}
+				else return toFactoryUser(res.data);
 			});
 	};
-	this.deleteUser = function(email) {
-		return $http.delete('/user/' + email)
+	this.deleteUser = function(id) {
+		return $http.delete('/user/' + id)
 			.then(function(res){
 				if(res.status != 200) throw res;
 				else {
@@ -27,22 +25,16 @@ angular.module('testex')
 				}
 			});
 	};
-	this.getMe = function() {
-		return $http.get('/loggedin')
-			.then(function(user) {
-            	if (user !== '0') return user;
-            	else throw new Exception(null);
-        	});
-	};
 	function toFactoryUser(us){
 		var user = new User(us.email, us.username, us.admin);
 		if(us.password) user.password = us.password;
 		return user;
 	};
-	function toFactoryUserArray(usersArray){
+	function toFactoryUserArray(usersMap){
 		var array = [];
-		for (var i = usersArray.length - 1; i >= 0; i--) {
-			array.push(toFactoryUser(usersArray[i]));
+		for(id in usersMap){
+			if (!usersMap.hasOwnProperty(id)) continue;
+			array.push(usersMap[id]);
 		}
 		return array;
 	};
