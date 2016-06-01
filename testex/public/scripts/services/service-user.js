@@ -26,7 +26,14 @@ angular.module('testex')
 					return toFactoryUserArray(res.data);
 				}
 			});
-	}
+	};
+	this.getMe = function() {
+		return $http.get('/loggedin')
+			.then(function(user) {
+            	if (user !== '0') return user;
+            	else throw new Exception(null);
+        	});
+	};
 	function toFactoryUser(us){
 		var user = new User(us.email, us.username, us.admin);
 		if(us.password) user.password = us.password;

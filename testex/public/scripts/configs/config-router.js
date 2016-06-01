@@ -1,24 +1,34 @@
 angular.module('testex')
-	.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-    function checkLoggedin($q, $http, $rootScope, $state) {
-        var deferred = $q.defer();
-
-        $http.get('/loggedin').success(function(user) {
-            if (user !== '0') deferred.resolve();
-            else {
-                //$rootScope.message ='You need to log in.';
-                deferred.reject();
-                $state.go('login');
-            }
-        return deferred.promise;
-    };
-
+    .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+    
     function getUser(UserService, $stateParams){
         return UserService.getUser($stateParams.userEmail);
     }
 
-    function getUsersArray(UserService.getAllUsers){
+    function getUsersArray(UserService){
         return UserService.getAllUsers();
+    }
+
+    function checkLogged($state, AuthService) {
+                console.log(AuthService.isLogged());
+        return new Promise(function(resolve, reject){
+            if(AuthService.isLogged() === false) {
+                $state.go('welcome');
+                reject();
+            }
+            else resolve();
+        });
+    }
+
+    function checkUnLogged($state, AuthService) {
+                console.log(AuthService.isLogged());
+        return new Promise(function(resolve, reject){
+            if(AuthService.isLogged() === false) resolve();
+            else {
+                $state.go('main');
+                reject();
+            }
+        });
     }
 
 	$stateProvider
@@ -27,7 +37,9 @@ angular.module('testex')
             templateUrl: 'html/main.html',
             controller: 'MainCtrl',
             resolve: {
-                authorized: checkLoggedin,
+                isAuthorized: checkLogged
+            },
+            data: {
                 users: getUsersArray
             }
         })
@@ -39,24 +51,34 @@ angular.module('testex')
                 userEmail: null
             },
             resolve: {
-                authorized: checkLoggedin,
+                isAuthorized: checkLogged
+            },
+            data: {
                 user: getUser
             }
         })
         .state('welcome', {
             url: '/welcome',
             templateUrl: 'html/welcome.html',
-            controller: 'WelcomeCtrl'
+            resolve: {
+                isAuthorized: checkUnLogged
+            }
         })
         .state('login', {
             url: '/login',
             templateUrl: 'html/login.html',
-            controller: 'LoginCtrl'
+            controller: 'LoginCtrl',
+            resolve: {
+                isAuthorized: checkUnLogged
+            }
         })
         .state('register', {
             url: '/register',
             templateUrl: 'html/register.html',
-            controller: 'RegisterCtrl'
+            controller: 'RegisterCtrl',
+            resolve: {
+                authorized: checkUnLogged
+            }
         });
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/welcome');
 }]);

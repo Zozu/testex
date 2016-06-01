@@ -1,1 +1,0 @@
-angular.module('testex').controller("WelcomeCtrl", function() {}); 

@@ -15,7 +15,7 @@ module.exports = function(passport){
 	//get user by email
 	router.get('/user/:email', auth, (req, res, next) => {
 		User.findUser(req.params.email)
-			.then(user => res.status(200).end(user);)
+			.then(user => res.status(200).end(user))
 			.catch(err => {
 				if (err === false) res.status(404).end('Not Found');
 				else res.status(500).end(err);
@@ -35,7 +35,7 @@ module.exports = function(passport){
 	});
 
 	//update user by email
-	router.update('/user/:email', auth, isAdmin, (req, res, next) => {
+	router.put('/user/:email', auth, isAdmin, (req, res, next) => {
 		User.updateUser(req.params.email, req.body.user)
 			.then(updatedUser => {res.status(200).end(updatedUser);})
 			.catch(err => {

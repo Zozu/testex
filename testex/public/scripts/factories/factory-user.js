@@ -40,7 +40,7 @@ angular.module('testex')
 	};
 
 	User.prototype.update = function(){
-		return $http.update('/user/' + this.email, this.obj)
+		return $http.put('/user/' + this.email, this.obj)
 			.then(function(res){
 				if(res.status != 200) throw res;
 				else {

@@ -1,0 +1,25 @@
+<div class="col-lg-6 col-md-6 col-sm-8 col-lg-offset-3 col-md-offset-3 col-sm-offset-2">
+	<div class="page-header">
+		<h3>Registration:</h3>
+	</div>
+</div>
+<div class="col-lg-4 col-md-4 col-sm-6 col-lg-offset-4 col-md-offset-4 col-sm-offset-3">
+	<form novalidate >
+		<div class="form-group">
+			<label for="username">Username</label>
+			<input type="text" id="username" ng-model="registerUser.username" placeholder="Username..." class="form-control" required />
+		</div>
+		<div class="form-group">
+			<label for="email">Email address</label>
+			<input type="email" id="email" ng-model="registerUser.email" placeholder="E-mail..." class="form-control" required />
+		</div>
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input type="password" id="password" ng-model="registerUser.password" placeholder="Password..." class="form-control" required />
+		</div>
+		<input type="submit" class="btn btn-primary btn-sm pull-right" ng-click="register()" value="Sign up" />
+	</form>
+	<br>
+	<hr>
+	<a ui-sref="login">Login if you are registered...</a>
+</div>

@@ -17,14 +17,14 @@
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"></button>
       				<a class="navbar-brand" ui-sref="main">Example</a>
 				</div>
-				<p class="navbar-text">Test project from Max Selekh</p>
+				<p class="navbar-text hidden-xs">Test project from Max Selekh</p>
 				<ul class="nav navbar-nav navbar-right">
         			<li ng-hide="authorized"><a ui-sref="login">Log In</a></li>
-        			<li ng-hide="authorized"><a ui-sref="register">Sign In</a></li>
+        			<li ng-hide="authorized"><a ui-sref="register">Sign Up</a></li>
         			<li ng-show="authorized" class="dropdown">
-          				<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.username}} <span class="caret"></span></a>
+          				<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{rootUser.username}} <span class="caret"></span></a>
           				<ul class="dropdown-menu">
-            				<li><a ui-sref="edit({userId: user.id})">Edit profile</a></li>
+            				<li><a ui-sref="edit({userEmail: rootUser.email})">Edit profile</a></li>
 				            <li role="separator" class="divider"></li>
 				            <li><a ng-click="logout();">Logout</a></li>
           				</ul>
@@ -36,18 +36,22 @@
 		<!-- bower:js -->
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 		<!-- endinject -->
 		<!-- inject:js -->
 		<script src="scripts/app.js"></script>
-		<script src="scripts/controllers/controller-welcome.js"></script>
+		<script src="scripts/services/service-user.js"></script>
+		<script src="scripts/services/service-authentication.js"></script>
+		<script src="scripts/factories/factory-user.js"></script>
 		<script src="scripts/controllers/controller-register.js"></script>
 		<script src="scripts/controllers/controller-navbar.js"></script>
 		<script src="scripts/controllers/controller-main.js"></script>
 		<script src="scripts/controllers/controller-login.js"></script>
 		<script src="scripts/controllers/controller-edit.js"></script>
 		<script src="scripts/configs/config-router.js"></script>
-		<script src="scripts/angular-ui-router.min.js"></script>
+		<script src="scripts/configs/config-http.js"></script>
+		<script src="scripts/app-run.js"></script>
 		<!-- endinject -->
 	</body>
 </html>

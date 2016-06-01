@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
 	bcrypt = require('bcrypt-nodejs');
 
-var toHash = pass => bcrypt.hashSync(pass, bCrypt.genSaltSync(10), null);
+var toHash = pass => bcrypt.hashSync(pass, bcrypt.genSaltSync(10), null);
 
 var userSchema = mongoose.Schema({
     username: { 
@@ -14,13 +14,13 @@ var userSchema = mongoose.Schema({
     	type: String, 
     	required: true,
     	index: { unique: true },
-    	match: /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i 
+    	match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ 
     },
     password: { 
     	type: String, 
     	required: true,
     	minlength: 6,
-    	maxlength: 20, 
+    	//maxlength: 40, 
     	set: toHash
     },
     admin: { 
@@ -32,12 +32,16 @@ var userSchema = mongoose.Schema({
 var User = mongoose.model('User', userSchema);
 
 User.addUser = userFromClient => {
-	var addUserPromise = User.findOne({'email': user.email}, {'password': 0}).exec();
 
+	console.log(333);
+	var addUserPromise = User.findOne({'email': userFromClient.email}, {'password': 0}).exec();
+	console.log(userFromClient);
 	return addUserPromise
 		.then((user) => {
+			console.log(user);
 			if(user) throw false;
 			else {
+				console.log(111);
 				var newUser = new User(userFromClient);
 				return newUser.save();
 			}
@@ -88,6 +92,7 @@ User.deleteUser = email => {
 };
 
 User.tryLogin = (email, password) => {
+	consoloe.log(777);
 	var loginPromise = User.findOne({'email': email}).exec();
 
 	return	loginPromise

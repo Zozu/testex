@@ -5,10 +5,12 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     passport = require('./libs/auth'),
+    session = require('express-session'),
+    methodOverride = require('method-override'),
     MongoStore = require('connect-mongo')(session),
     api = require('./routes/api')(passport);
 
-mongoose.connect('mongodb://localhost/AngularizeApp');
+mongoose.connect('mongodb://localhost/testex');
 
 var db = mongoose.connection;
 
@@ -22,6 +24,7 @@ db.once('open', function callback () {
 var app = express();
 
 app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser()); 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,15 +34,13 @@ app.use(session({
     store: new MongoStore({
       mongooseConnection: mongoose.connection,
       ttl: 7 * 24 * 60 * 60 // = 7 days.
-    })
+    }),
+    resave: true,
+    saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', api);
-
-var initPassport = require('./libs/auth');
-initPassport(passport);
 
 module.exports = app;

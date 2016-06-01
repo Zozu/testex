@@ -1,63 +1,23 @@
 <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
 	<p class="h4 text-muted">Users:</p>
 	<hr>
+	<h4 ng-show="!users || users.lenght == 0" class="text-muted">Nothing to show..</h4>
 	<ul class="user-list list-unstyled"> 
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
-		<li class="user-list-item">- aaa <a href="#"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
+		<li ng-repeat="user in users" class="user-list-item">- {{user.username}} <small>({{user.email}})</small> <a ui-sref="edit({userEmail: user.email})"><span class="glyphicon glyphicon-cog pull-right" aria-hidden="true"></span></a></li>
 	</ul>
 	<hr>
 	<button type="button" class="btn btn-success btn-xs pull-right">
-			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add user 
+			<span class="glyphicon glyphicon-plus" aria-hidden="true" ng-click="openAddModal()"></span> Add user 
 	</button>
 </div>
-<div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-2 col-xs-6">
+<!-- could be uncommented in future -->
+<!-- <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-2 col-xs-6">
 	<div class="panel panel-primary chat-box">
 		<div class="panel-heading">Username</div>
 		<div class="panel-body extend-body">
 			<ul class="list-unstyled">
 				<li class="message-opponent"><span class="name">Opponent: </span><span class="text-muted">Message</span></li>
 				<li class="message-self"><span class="name">You: </span><span class="text-muted">Message</span></li>
-				<li class="message-opponent"><span class="name">Opponent: </span><span class="text-muted">Message</span></li>
-				<li class="message-opponent"><span class="name">Opponent: </span><span class="text-muted">Message</span></li>
-				<li class="message-self"><span class="name">You: </span><span class="text-muted">Message</span></li>
-				<li class="message-opponent"><span class="name">Opponent: </span><span class="text-muted">Message</span></li>
-				<li class="message-opponent"><span class="name">Opponent: </span><span class="text-muted">Message</span></li>
-				<li class="message-opponent"><span class="name">Opponent: </span><span class="text-muted">Message</span></li>
-				<li class="message-self"><span class="name">You: </span><span class="text-muted">Message</span></li>
-				<li class="message-opponent"><span class="name">Opponent: </span><span class="text-muted">Message</span></li>
-				<li class="message-opponent"><span class="name">Opponent: </span><span class="text-muted">Message</span></li>
-				<li class="message-self"><span class="name">You: </span><span class="text-muted">Message</span></li>
-				<li class="message-opponent"><span class="name">Opponent: </span><span class="text-muted">Message</span></li>
-				<li class="message-opponent"><span class="name">Opponent: </span><span class="text-muted">Message</span></li>
-				<li class="message-opponent"><span class="name">Opponent: </span><span class="text-muted">Message</span></li>
-				<li class="message-self"><span class="name">You: </span><span class="text-muted">Message</span></li>
-				<li class="message-opponent"><span class="name">Opponent: </span><span class="text-muted">Message</span></li>
-				<li class="message-opponent"><span class="name">Opponent: </span><span class="text-muted">Message</span></li>
-				<li class="message-self"><span class="name">You: </span><span class="text-muted">Message</span></li>
-				<li class="message-opponent"><span class="name">Opponent: </span><span class="text-muted">Message</span></li>
-				<li class="message-opponent"><span class="name">Opponent: </span><span class="text-muted">Message</span></li>
 			</ul>
 		</div>
 		<div class="panel-footer">
@@ -69,4 +29,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
