@@ -9,6 +9,29 @@
 		<!-- inject:css -->
 		<link rel="stylesheet" href="styles/css/styles.css">
 		<!-- endinject -->
+		<!-- bower:js -->
+		<script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+		<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+		<!-- endinject -->
+		<!-- inject:js -->
+		<script src="scripts/app.js"></script>
+		<script src="scripts/controllers/modals/controller-user-modal.js"></script>
+		<script src="scripts/controllers/modals/controller-delete-modal.js"></script>
+		<script src="scripts/services/service-user.js"></script>
+		<script src="scripts/services/service-authentication.js"></script>
+		<script src="scripts/factories/factory-user.js"></script>
+		<script src="scripts/controllers/controller-register.js"></script>
+		<script src="scripts/controllers/controller-navbar.js"></script>
+		<script src="scripts/controllers/controller-main.js"></script>
+		<script src="scripts/controllers/controller-login.js"></script>
+		<script src="scripts/controllers/controller-edit.js"></script>
+		<script src="scripts/configs/config-router.js"></script>
+		<script src="scripts/configs/config-http.js"></script>
+		<script src="scripts/app-run.js"></script>
+		<!-- endinject -->
 	</head>
 	<body>
 		<nav class="navbar navbar-default" ng-controller="NavBarCtrl">
@@ -33,28 +56,5 @@
 			</div>
 		</nav>
 		<div ui-view class="container content"></div>
-		<!-- bower:js -->
-		<script src="bower_components/angular/angular.js"></script>
-		<script src="bower_components/jquery/dist/jquery.js"></script>
-		<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-		<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-		<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-		<!-- endinject -->
-		<!-- inject:js -->
-		<script src="scripts/app.js"></script>
-		<script src="scripts/controllers/modals/controller-user-modal.js"></script>
-		<script src="scripts/controllers/modals/controller-delete-modal.js"></script>
-		<script src="scripts/services/service-user.js"></script>
-		<script src="scripts/services/service-authentication.js"></script>
-		<script src="scripts/factories/factory-user.js"></script>
-		<script src="scripts/controllers/controller-register.js"></script>
-		<script src="scripts/controllers/controller-navbar.js"></script>
-		<script src="scripts/controllers/controller-main.js"></script>
-		<script src="scripts/controllers/controller-login.js"></script>
-		<script src="scripts/controllers/controller-edit.js"></script>
-		<script src="scripts/configs/config-router.js"></script>
-		<script src="scripts/configs/config-http.js"></script>
-		<script src="scripts/app-run.js"></script>
-		<!-- endinject -->
 	</body>
 </html>
