@@ -1,6 +1,7 @@
 angular.module('testex').controller("MainCtrl", ['$scope', '$rootScope', '$state', '$uibModal', 'User', 'users', 
 		function($scope, $rootScope, $state, $uibModal, User, users) {
 	$scope.users = users;
+  console.log(users);
 	$scope.openAddModal = function () {
     	var modalInstance = $uibModal.open({
       		animation: true,
@@ -19,8 +20,11 @@ angular.module('testex').controller("MainCtrl", ['$scope', '$rootScope', '$state
 
     	modalInstance.result
     	.then(function (res) {
-      		var newUser = new User(res);
-      		newUser.save();
+      		var newUser = new User(res.email, res.username, res.password);
+      		newUser.save()
+            .then(function(newUser) {
+                $scope.users.push(newUser);
+            });
     	});
   	};
 }]); 

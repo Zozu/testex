@@ -1,11 +1,12 @@
-angular.module('testex').controller("EditCtrl", ['$state', '$scope', '$uibModal', 'UserService', 'user', 
-		function($state, $scope, $uibModal, UserService, user) {
-	$scope.user = user;
+angular.module('testex').controller("EditCtrl", ['$state', '$rootScope', '$scope', '$uibModal', 'UserService', 'user', 
+		function($state, $rootScope, $scope, $uibModal, UserService, user) {
+	$scope.user = angular.copy(user);
+    console.log(user);
 	$scope.openEditModal = function() {
 		var modalInstance = $uibModal.open({
       		animation: true,
       		templateUrl: '/html/modals/user-modal.html',
-      		controller: 'DeleteModalInstanceCtrl',
+      		controller: 'UserModalInstanceCtrl',
       		resolve: {
         		user: function () {
           			return $scope.user;
@@ -21,12 +22,26 @@ angular.module('testex').controller("EditCtrl", ['$state', '$scope', '$uibModal'
 
     	modalInstance.result
     	.then(function (res) {
-    		console.log(res);
       		var newUser = UserService.toFactoryUser(res);
-      		newUser.update(res._id);
+      		newUser.update(res._id)
+                .catch(function() {
+                    $scope.user = angular.copy(user);
+                });
     	});
 	};
 	$scope.openDeleteModal = function () {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: '/html/modals/delete-modal.html',
+            controller: 'DeleteModalInstanceCtrl'
+        });
 
+        modalInstance.result
+        .then(function () {
+            UserService.deleteUser($scope.user._id)
+                .then(function() {
+                    $state.go('main');
+                });
+        });
 	};
 }]); 

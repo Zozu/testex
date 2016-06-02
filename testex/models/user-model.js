@@ -73,7 +73,7 @@ User.findUserById = id => {
 };
 
 User.updateUser = (id, userFromClient) => {
-	return this.findUserById(id)
+	return User.findUserById(id)
 		.then(user => {
 			user.email = userFromClient.email;
 			user.password = userFromClient.password;

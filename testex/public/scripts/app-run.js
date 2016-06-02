@@ -1,5 +1,5 @@
 angular.module('testex')
-	.run(['$rootScope', 'AuthService', function ($rootScope, AuthService) {
+	.run(['$state', '$rootScope', 'AuthService', function ($state, $rootScope, AuthService) {
 	    $rootScope.updateUser = function() {
 		    $rootScope.rootUser = AuthService.getUser();
 			$rootScope.authorized = AuthService.isLogged();
@@ -14,6 +14,7 @@ angular.module('testex')
 
 	    AuthService.checkLoggedin()
 		    .then(function() {
+		    	$state.go('welcome');
 			    $rootScope.updateUser();
 		    });
 }]);

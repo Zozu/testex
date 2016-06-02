@@ -1,6 +1,6 @@
 angular.module('testex')
 	.factory('User', ['$http', function($http){
-	var User = function (email, username, admin, password){
+	var User = function (email, username, password, admin){
 		this.obj = {
 			username : username,
 			email : email,
@@ -40,13 +40,16 @@ angular.module('testex')
 	};
 
 	User.prototype.update = function(id){
-		console.log(this.obj);
 		return $http.put('/user/' + id, this.obj)
 			.then(function(res){
 				if(res.status != 200) throw res;
 				else {
 					return res.data;
 				}
+			})
+			.catch(function(err){
+				console.log(err);
+				return err;
 			});
 	};
 

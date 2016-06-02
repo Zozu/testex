@@ -4,7 +4,7 @@ angular.module('testex')
 		return $http.get('/user/' + id)
 			.then(function(res){
 				if(res.status != 200) throw res;
-				else return toFactoryUser(res.data);
+				else return res.data;
 			});
 	};
 	this.deleteUser = function(id) {
@@ -12,7 +12,7 @@ angular.module('testex')
 			.then(function(res){
 				if(res.status != 200) throw res;
 				else {
-					return toFactoryUser(res.data);
+					return res.data;
 				}
 			});
 	};

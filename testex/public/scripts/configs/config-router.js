@@ -9,21 +9,21 @@ angular.module('testex')
         return UserService.getAllUsers();
     }
 
-    function checkLogged($state, AuthService) {
+    function checkLogged($injector, AuthService) {
         return new Promise(function(resolve, reject){
             if(AuthService.isLogged() === false) {
-                $state.go('welcome');
+                $injector.get('$state').transitionTo('welcome');
                 reject();
             }
             else resolve();
         });
     }
 
-    function checkUnLogged($state, AuthService) {
+    function checkUnLogged($injector, AuthService) {
         return new Promise(function(resolve, reject){
             if(AuthService.isLogged() === false) resolve();
             else {
-                $state.go('main');
+                $injector.get('$state').transitionTo('main');
                 reject();
             }
         });
