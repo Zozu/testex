@@ -8,9 +8,10 @@ var express = require('express'),
     session = require('express-session'),
     methodOverride = require('method-override'),
     MongoStore = require('connect-mongo')(session),
-    api = require('./routes/api')(passport);
+    api = require('./routes/api')(passport),
+    config = require('./libs/config');
 
-mongoose.connect('mongodb://localhost/testex');
+mongoose.connect(config.get('mongoose:uri'));
 
 var db = mongoose.connection;
 

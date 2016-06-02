@@ -8,7 +8,7 @@
 		"express": 3000
 	},
     "mongoose": {
-        "uri": "mongodb://localhost/testex"
+        "uri": "mongodb://heroku_h09msx4s:v99h7sv7up4gnr3h1d4652gf1b@ds021663.mlab.com:21663/heroku_h09msx4s"
     },
     "paths": {
     	"public":"./public"
