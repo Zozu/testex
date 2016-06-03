@@ -1,7 +1,6 @@
 angular.module('testex').controller("MainCtrl", ['$scope', '$rootScope', '$state', '$uibModal', 'User', 'users', 
 		function($scope, $rootScope, $state, $uibModal, User, users) {
 	$scope.users = users;
-  console.log(users);
 	$scope.openAddModal = function () {
     	var modalInstance = $uibModal.open({
       		animation: true,

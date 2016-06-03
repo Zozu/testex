@@ -1,7 +1,6 @@
 angular.module('testex').controller("EditCtrl", ['$state', '$rootScope', '$scope', '$uibModal', 'UserService', 'user', 
 		function($state, $rootScope, $scope, $uibModal, UserService, user) {
 	$scope.user = angular.copy(user);
-    console.log(user);
 	$scope.openEditModal = function() {
 		var modalInstance = $uibModal.open({
       		animation: true,

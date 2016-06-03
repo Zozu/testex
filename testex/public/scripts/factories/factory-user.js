@@ -46,10 +46,6 @@ angular.module('testex')
 				else {
 					return res.data;
 				}
-			})
-			.catch(function(err){
-				console.log(err);
-				return err;
 			});
 	};
 
